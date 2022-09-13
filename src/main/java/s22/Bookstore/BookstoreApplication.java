@@ -25,16 +25,17 @@ public class BookstoreApplication {
 	public CommandLineRunner demo(BookRepository repository, CategoryRepository crepository) {
 		return (args) -> {
 			log.info("Categories");
-			//crepository.save(new Category("Fantasy"));
-			//crepository.save(new Category("History"));
-			//crepository.save(new Category("Horror"));
-			//crepository.save(new Category("Science"));
-			//crepository.save(new Category("Science fiction"));
+			crepository.save(new Category("Fantasy"));
+			crepository.save(new Category("History"));
+			crepository.save(new Category("Horror"));
+			crepository.save(new Category("Science"));
+			crepository.save(new Category("Science fiction"));
 			crepository.save(new Category("Thriller"));
 			
-			//repository.save(new Book("Kaiken käsikirja", "Esko Valtaoja", 2012, "978-952-5985-05-4", 15.99, crepository.findByName("Science").get(0)));
-			//repository.save(new Book("Informaatio", "Hans Christian von Bayeyer", 2005, "952-5202-86-0", 4.99, crepository.findByName("Science").get(0)));
-			//repository.save(new Book("Maria Magdaleenan arvoitus", "Laurence Gardner", 2005, "13978-951-9107-52-3", 9.99, crepository.findByName("History").get(0)));
+			log.info("New books");
+			repository.save(new Book("Kaiken käsikirja", "Esko Valtaoja", 2012, "978-952-5985-05-4", 15.99, crepository.findByName("Science").get(0)));
+			repository.save(new Book("Informaatio", "Hans Christian von Bayeyer", 2005, "952-5202-86-0", 4.99, crepository.findByName("Science").get(0)));
+			repository.save(new Book("Maria Magdaleenan arvoitus", "Laurence Gardner", 2005, "13978-951-9107-52-3", 9.99, crepository.findByName("History").get(0)));
 			repository.save(new Book("The Girl with the Dragon Tattoo", "Stieg Larsson", 2005, "178-931-1007-61-8", 9.99, crepository.findByName("Thriller").get(0)));
 			
 			log.info("fetch all books");
