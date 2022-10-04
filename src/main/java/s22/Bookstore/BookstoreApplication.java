@@ -8,6 +8,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
+import s22.Bookstore.domain.ApplicationUser;
+import s22.Bookstore.domain.ApplicationUserRepository;
 import s22.Bookstore.domain.Book;
 import s22.Bookstore.domain.BookRepository;
 import s22.Bookstore.domain.Category;
@@ -22,8 +24,15 @@ public class BookstoreApplication {
 	}
 	
 	@Bean
-	public CommandLineRunner demo(BookRepository repository, CategoryRepository crepository) {
+	public CommandLineRunner demo(BookRepository repository, CategoryRepository crepository, ApplicationUserRepository applicationUserRepository) {
 		return (args) -> {
+			
+			log.info("Users");
+			applicationUserRepository.save(new ApplicationUser("Maija", "Meikäläinen", "USER", "user",
+					"$2a$10$57kg9OGuj44FPQyaps/fvOHmP845GQHIFdjphY4ILU/LoF1sVnQPS"));
+			applicationUserRepository.save(new ApplicationUser("Elina", "Rouvinen", "ADMIN", "admin",
+					"$2a$10$7DJe9e5TiHD5hHpm029KKeVXE/waBITs/9ykEd1qhEfZZbaRVkRiW"));
+
 			log.info("Categories");
 			crepository.save(new Category("Fantasy"));
 			crepository.save(new Category("History"));
