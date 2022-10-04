@@ -1,11 +1,15 @@
 package s22.Bookstore.web;
 
+import javax.validation.Valid;
+
 //import java.util.List;
 //import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -32,6 +36,7 @@ public class BookController {
 	}
 	
 	// Add new book
+	@PreAuthorize("hasAuthority('ADMIN')")
 	@RequestMapping(value = "/addbook")
 	public String addBook(Model model){
 		model.addAttribute("book", new Book());
@@ -41,7 +46,12 @@ public class BookController {
 	
 	// Save new book
 	@RequestMapping(value = "/save", method = RequestMethod.POST)
-	public String save(Book book){
+	public String save(@Valid Book book, BindingResult bindingResult, Model model){
+		if (bindingResult.hasErrors()) {
+			System.out.println("Some error happened.");
+			model.addAttribute("categories", crepository.findAll());
+			return "addbook";
+		}
 		repository.save(book);
 		return "redirect:booklist";
 	}
@@ -54,6 +64,7 @@ public class BookController {
 	}
 	
 	// Edit book
+	@PreAuthorize("hasAuthority('ADMIN')")
 	@RequestMapping(value = "/editbook/{id}", method = RequestMethod.GET)
 	public String editBook(@PathVariable("id") Long bookId, Model model){ 
 		model.addAttribute("book", repository.findById(bookId));
