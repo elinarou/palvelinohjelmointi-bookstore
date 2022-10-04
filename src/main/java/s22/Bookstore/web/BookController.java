@@ -45,6 +45,7 @@ public class BookController {
 	}
 	
 	// Save new book
+	@PreAuthorize("hasAuthority('ADMIN')")
 	@RequestMapping(value = "/save", method = RequestMethod.POST)
 	public String save(@Valid Book book, BindingResult bindingResult, Model model){
 		if (bindingResult.hasErrors()) {
@@ -57,6 +58,7 @@ public class BookController {
 	}
 	
 	// Delete book
+	@PreAuthorize("hasAuthority('ADMIN')")
 	@RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
 	public String deleteBook(@PathVariable("id") Long bookId, Model model){ 
 		repository.deleteById(bookId);
