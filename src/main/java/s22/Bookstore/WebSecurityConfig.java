@@ -35,14 +35,17 @@ public class WebSecurityConfig {
 			auth.antMatchers("/editbook/**").hasAuthority("ADMIN");
 			// every http request will be authenticated
 			auth.anyRequest().authenticated();
-		}).csrf().ignoringAntMatchers("h2-console").and()
-				// tells where to go after successful login
-				.formLogin().defaultSuccessUrl("/booklist", true).and()
-				// Logout is permitted for all users
-				.logout().permitAll().and()
-
-				//
-				.httpBasic(Customizer.withDefaults()).build();
+		})
+			// below configuration is demanded if you want to use h2-console
+			.headers().frameOptions().disable().and()
+			// and this one for h2-console
+			.csrf().ignoringAntMatchers("/h2-console/**").and()
+			// tells where to go after successful login
+			.formLogin().defaultSuccessUrl("/booklist", true).and()
+			// Logout is permitted for all users
+			.logout().permitAll().and()
+			// and finally build this
+			.httpBasic(Customizer.withDefaults()).build();
 	}
 
 	@Autowired
