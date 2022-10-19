@@ -30,9 +30,9 @@ public class BookController {
 	
 	// Show booklist
 	@RequestMapping(value= {"/", "/booklist"})
-	public String bookList(Model model) {
+	public String booklist(Model model) {
 		model.addAttribute("books", repository.findAll());
-		return "bookList";
+		return "booklist";
 	}
 	
 	// Add new book
@@ -76,7 +76,7 @@ public class BookController {
 	
 //	// REST-service to get all books
 //	@RequestMapping(value="/books", method = RequestMethod.GET)
-//	//public @ResponseBody List<Book> bookListRest() {	
+//	//public @ResponseBody List<Book> booklistRest() {	
 //        return (List<Book>) repository.findAll();
 //    }    
 //
